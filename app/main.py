@@ -16,6 +16,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 app = FastAPI()
 TARGET_DURATION = 7
 
+@app.get("/healthz")
+def health():
+    return {"status": "ok"}
+
 def convert_to_wav(input_path: str) -> str:
     with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_wav:
         output_path = temp_wav.name
