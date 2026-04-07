@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Baby Cry Classifier</title>
+</head>
+
+<link rel="stylesheet" href="/static/css/styles.css">
+
+<body>
+    <h1>Baby Cry Classifier</h1>
+    <p class="muted">
+        Nahrajte audio soubor nebo pořiďte až 7 sekund záznamu z mikrofonu.
+    </p>
+
+    <div class="card">
+        <h2>1. Nahrání souboru</h2>
+        <form id="upload-form">
+            <input type="file" id="file" name="file" accept=".wav,.mp3,audio/*">
+            <br>
+            <button type="submit">Klasifikovat nahraný soubor</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>2. Nahrání z mikrofonu</h2>
+        <button id="record-btn">Začít nahrávání</button>
+        <button id="stop-btn" disabled>Zastavit</button>
+        <p id="recording-status" class="muted">Záznam není spuštěn.</p>
+        <audio id="audio-preview" controls class="hidden"></audio>
+        <br>
+        <button id="send-recording-btn" class="hidden">Klasifikovat nahrávku</button>
+    </div>
+
+    <div class="card">
+        <h2>Výsledek</h2>
+        <div id="result" class="result-box">Zatím nebyla provedena klasifikace.</div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+
+</body>
+</html>
