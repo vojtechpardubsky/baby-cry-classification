@@ -8,7 +8,7 @@ def aggregate_feature(feature_matrix):
     return np.concatenate([mean, std])
 
 
-def extract_features_from_audio(audio, sr, feature_set="basic"):
+def extract_features_from_audio(audio, sr):
     features = []
 
     mfcc = librosa.feature.mfcc(
@@ -20,9 +20,8 @@ def extract_features_from_audio(audio, sr, feature_set="basic"):
         window="hann"
     )
 
-    features.append(aggregate_feature(mfcc))
+    for i in range(mfcc.shape[0]):
+        features.append(np.mean(mfcc[i]))
+        features.append(np.std(mfcc[i]))
 
-    if feature_set == "basic":
-        return np.concatenate(features)
-
-    raise ValueError("Tato aplikace aktuálně používá pouze basic sadu příznaků.")
+    return np.array(features)
