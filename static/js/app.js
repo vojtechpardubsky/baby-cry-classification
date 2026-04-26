@@ -42,9 +42,8 @@ async function classifyFile(file) {
 
         const label = classLabels[data.predicted_class] || data.predicted_class;
 
-        resultBox.innerText =
-            "Predikovaná třída: " + label +
-            "\nConfidence: " + data.confidence.toFixed(2);
+        resultBox.innerText = "Predikovaná třída: " + label;
+
     } catch (error) {
         resultBox.innerText = "Chyba komunikace se serverem.";
     }

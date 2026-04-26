@@ -8,37 +8,21 @@ def aggregate_feature(feature_matrix):
     return np.concatenate([mean, std])
 
 
-def extract_features_from_audio(audio, sr, feature_set="advanced"):
+def extract_features_from_audio(audio, sr, feature_set="basic"):
     features = []
 
-    # MFCC
-    mfcc = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=13)
+    mfcc = librosa.feature.mfcc(
+        y=audio,
+        sr=sr,
+        n_mfcc=13,
+        n_fft=2048,
+        hop_length=512,
+        window="hann"
+    )
+
     features.append(aggregate_feature(mfcc))
 
-    if feature_set in ["extended", "advanced"]:
-        zcr = librosa.feature.zero_crossing_rate(audio)
-        features.append(aggregate_feature(zcr))
+    if feature_set == "basic":
+        return np.concatenate(features)
 
-        rms = librosa.feature.rms(y=audio)
-        features.append(aggregate_feature(rms))
-
-        centroid = librosa.feature.spectral_centroid(y=audio, sr=sr)
-        features.append(aggregate_feature(centroid))
-
-        bandwidth = librosa.feature.spectral_bandwidth(y=audio, sr=sr)
-        features.append(aggregate_feature(bandwidth))
-
-        rolloff = librosa.feature.spectral_rolloff(y=audio, sr=sr)
-        features.append(aggregate_feature(rolloff))
-
-        flatness = librosa.feature.spectral_flatness(y=audio)
-        features.append(aggregate_feature(flatness))
-
-    if feature_set == "advanced":
-        delta_mfcc = librosa.feature.delta(mfcc)
-        features.append(aggregate_feature(delta_mfcc))
-
-        chroma = librosa.feature.chroma_stft(y=audio, sr=sr)
-        features.append(aggregate_feature(chroma))
-
-    return np.concatenate(features)
+    raise ValueError("Tato aplikace aktuálně používá pouze basic sadu příznaků.")
