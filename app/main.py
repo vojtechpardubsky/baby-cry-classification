@@ -77,6 +77,7 @@ async def predict(file: UploadFile = File(...)):
             audio = np.pad(audio, (0, padding), mode="constant")
 
         features = extract_features_from_audio(audio, sr)
+
         prediction = predict_class(features)
 
         return {

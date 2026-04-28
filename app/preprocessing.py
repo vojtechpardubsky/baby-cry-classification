@@ -3,14 +3,15 @@ import librosa
 
 
 def aggregate_feature(feature_matrix):
-    mean = np.mean(feature_matrix, axis=1)
-    std = np.std(feature_matrix, axis=1)
-    return np.concatenate([mean, std])
+    features = []
+    for i in range(feature_matrix.shape[0]):
+        values = feature_matrix[i]
+        features.append(np.mean(values))
+        features.append(np.std(values))
+    return np.array(features)
 
 
 def extract_features_from_audio(audio, sr):
-    features = []
-
     mfcc = librosa.feature.mfcc(
         y=audio,
         sr=sr,
@@ -20,8 +21,4 @@ def extract_features_from_audio(audio, sr):
         window="hann"
     )
 
-    for i in range(mfcc.shape[0]):
-        features.append(np.mean(mfcc[i]))
-        features.append(np.std(mfcc[i]))
-
-    return np.array(features)
+    return aggregate_feature(mfcc)
