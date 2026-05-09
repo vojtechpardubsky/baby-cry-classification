@@ -3,7 +3,7 @@ const resultBox = document.getElementById("result");
 const classLabels = {
     hungry: "hlad",
     belly_pain: "bolest břicha",
-    discomfort: "diskomfort",
+    discomfort: "nepohodlí",
     tired: "únava",
     burping: "potřeba odříhnutí"
 };

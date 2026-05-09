@@ -1,6 +1,10 @@
 import numpy as np
 import librosa
 
+N_MFCC = 13
+WIN_LENGTH = 256
+N_FFT = 512
+HOP_LENGTH = 80
 
 def aggregate_feature(feature_matrix):
     features = []
@@ -15,9 +19,10 @@ def extract_features_from_audio(audio, sr):
     mfcc = librosa.feature.mfcc(
         y=audio,
         sr=sr,
-        n_mfcc=13,
-        n_fft=2048,
-        hop_length=512,
+        n_mfcc=N_MFCC,
+        n_fft=N_FFT,
+        hop_length=HOP_LENGTH,
+        win_length=WIN_LENGTH,
         window="hann"
     )
 
